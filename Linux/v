@@ -1,0 +1,134 @@
+#!/usr/bin/python
+from os import access, R_OK
+from os.path import isdir, isfile, splitext
+from subprocess import DEVNULL, Popen, run
+from sys import argv, exit
+
+displayRules = {
+    "*audio"  : "vlc",
+    "*image"  : "nomacs",
+    "*office" : "libreoffice --view",
+    "*video"  : "vlc",
+
+    "basic"   : "less",
+    "c"       : "less",
+    "class"   : "%javap",
+    "cpp"     : "less",
+    "csh"     : "less",
+    "djvu"    : "evince",
+    "docx"    : "*office",
+    "dvi"     : "xdvi",
+    "eps"     : "evince",
+    "f"       : "less",
+    "f77"     : "less",
+    "f90"     : "less",
+    "f95"     : "less",
+    "fig"     : "xfig",
+    "fortran" : "less",
+    "gif"     : "*image",
+    "h"       : "less",
+    "hpp"     : "less",
+    "htm"     : "lynx",
+    "html"    : "lynx",
+    "ico"     : "*image",
+    "jar"     : "%jar tf",
+    "java"    : "less",
+    "jpeg"    : "*image",
+    "jpg"     : "*image",
+    "js"      : "less",
+    "mov"     : "*video",
+    "mp3"     : "*audio",
+    "mp4"     : "*video",
+    "mpeg"    : "*audio",
+    "odt"     : "*office",
+    "ogg"     : "*audio",
+    "pas"     : "less",
+    "pdf"     : "evince",
+    "pgn"     : "scid",
+    "pl"      : "less",
+    "png"     : "*image",
+    "ppt"     : "*office",
+    "ps"      : "evince",
+    "py"      : "less",
+    "rar"     : "%rar l",
+    "sh"      : "less",
+    "svg"     : "*image",
+    "tar"     : "%tar tvf",
+    "tgz"     : "%tar tvzf",
+    "ts"      : "less",
+    "txt"     : "vf",
+    "webp"    : "*image",
+    "wma"     : "*audio",
+    "wmv"     : "*video",
+    "xls"     : "*office",
+    "xlsx"    : "*office",
+    "zip"     : "%unzip -l" }
+
+terminalApps = { "javap", "jar", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
+
+
+def is_textfile(filename):
+    """
+    Determines if the given file is a text file by invoking the 'file' command.
+
+    Args:
+        filename (str): The path to the file to check.
+
+    Returns:
+        bool: True if the file is identified as a text file, False otherwise.
+    """
+    file_result = run(["file", "-L", filename], capture_output=True)
+    if (file_result.returncode != 0):
+        return False
+    output = file_result.stdout.decode()
+    if ':' not in output:
+        return False
+    return "text" in output.rsplit(':', 1)[1]
+
+def display_file(command, filename):
+    args = command.split()
+    args.append(filename)
+    if args[0] in terminalApps:
+        run(args)
+    else:
+        Popen(args, stderr=DEVNULL)
+
+if len(argv) <= 1:
+    print("Missing filename command line argument.")
+    exit(1)
+filename = " ".join(argv[1:])
+if isdir(filename):
+    display_file("ls -l", filename)
+    exit(0)
+elif not isfile(filename):
+    print("File", filename, "does not exist.")
+    exit(1)
+elif not access(filename, R_OK):
+    print("File", filename, "is not readable.")
+    exit(1)
+extension = splitext(filename)[1][1:]
+if len(extension) == 0:
+    if is_textfile(filename):
+        display_file("less", filename)
+    else:
+        print("Filename", filename, "without extension, no rule for displaying.")
+        exit(1)
+elif extension in displayRules:
+    command = displayRules[extension]
+    if command.startswith("*"):
+        command = displayRules[command]
+    if command.startswith("%"):
+        command = command[1:]
+        print("Content list for", filename)
+        print()
+    if command:
+        display_file(command, filename)
+    else:
+        print("Internal error, missing command to extension", extension)
+        exit(2)
+else:
+    if is_textfile(filename):
+        display_file("less", filename)
+    else:
+        print("No rule for extension", extension, "to display", filename)
+        exit(1)

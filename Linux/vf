@@ -1,0 +1,15 @@
+#!/bin/bash
+basename=${0##*/}
+if [ -z "$@" ]
+then
+    echo "$basename: Missing argument."
+    exit
+fi
+if [ -r "$@" ]
+then
+    length=`winsize --columns`
+    length=$((length-2))
+    fmt -s -w${length} "$@"|less
+else
+    echo "$basename: Cannot read file '$@'"
+fi
