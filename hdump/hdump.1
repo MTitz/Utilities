@@ -1,0 +1,99 @@
+.TH HDUMP 1 "April 15, 1997"
+.SH NAME
+.B hdump
+\- hexadecimal and ascii dump
+.SH SYNOPSIS
+.B hdump
+.RB [ \-b
+.I "begin\fR[\fBbkm\fR]]"
+.RB [ \-c
+.IR char ]
+.RB [ \-e
+.I "end\fR[\fBbkm\fR]]"
+.RB [ \-n
+.I "count\fR[\fBbkm\fR]]"
+.RB [ \-luv78 ]
+.RI [ file ]
+.I ...
+.SH DESCRIPTION
+.B hdump
+writes a hexadecimal and ascii dump of the given files to stdout. Reads input
+from stdin if no input files are given or when a file named `-' is given.
+.LP
+.B hdump
+uses the
+.I \-\-
+option to indicate that all following arguments are non-options.
+.SS OPTIONS
+.TP
+.IP "\fB\-b \fIbegin\fR[\fBbkm\fR]"
+Skips
+.I begin
+input bytes before writing. If
+.I begin
+begins with '0x' or '0X', it is interpreted in hexadecimal; otherwise, if it
+begins with '0', in octal; otherwise in decimal.
+.I begin
+is a nonzero integer, optionally followed by one of the following characters
+to specify a different unit.
+.RS
+.IP b
+512-byte blocks.
+.IP k
+1-kilobyte blocks.
+.IP m
+1-megabyte blocks.
+.RE
+.TP
+.BI "\-c " char
+Select character
+.I char
+for unprintable codes in the text column instead of a decimal point.
+.TP
+.IP "\fB\-e \fIend\fR[\fBbkm\fR]"
+The number
+.I end
+specifies the end byte of the output.
+.I end
+is a nonzero integer, optionally followed by one of the following characters
+to specify a different unit.
+.RS
+.IP b
+512-byte blocks.
+.IP k
+1-kilobyte blocks.
+.IP m
+1-megabyte blocks.
+.RE
+.TP
+.B \-l
+Use lowercase digits a-f (default).
+.TP
+.IP "\fB\-n \fIcount\fR[\fBbkm\fR]"
+Only output
+.I count
+bytes, beginning with the number specified by the
+.B \-b
+option. Any prefixes and suffixes on
+.I count
+are interpreted as for the
+.B \-b
+and the
+.B \-e
+options.
+.TP
+.B \-u
+Use uppercase digits A-F.
+.TP
+.B \-v
+Print the name of each file before dumping it.
+.TP
+.B \-7
+Print only 7 bit ASCII characters in the text column (default).
+.TP
+.B \-8
+Print 8 bit ASCII characters in the text column.
+.SH AUTHOR
+Martin Titz (martin.titz@gmx.net)
+.SH SEE ALSO
+hexdump(1), od(1), ascii(7), latin1(7).
