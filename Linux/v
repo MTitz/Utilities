@@ -106,7 +106,7 @@ elif not isfile(filename):
 elif not access(filename, R_OK):
     print("File", filename, "is not readable.")
     exit(1)
-extension = splitext(filename)[1][1:]
+extension = splitext(filename)[1][1:].lower()
 if len(extension) == 0:
     if is_textfile(filename):
         display_file("less", filename)
