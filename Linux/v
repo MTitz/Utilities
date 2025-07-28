@@ -100,7 +100,7 @@ def playdvd():
             if not entry.name.startswith('.') and entry.is_dir():
                 filename = path + '/' + entry.name
                 if isdir(filename + '/' + "VIDEO_TS"):
-                    display_file("vlc", filename)
+                    display_file(displayRules["*video"], filename)
                     return True
     return False
 
