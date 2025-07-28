@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from os import access, R_OK
+from os import access, getlogin, R_OK, scandir
 from os.path import isdir, isfile, splitext
 from subprocess import DEVNULL, Popen, run
 from sys import argv, exit
@@ -93,10 +93,24 @@ def display_file(command, filename):
     else:
         Popen(args, stderr=DEVNULL)
 
+def playdvd():
+    path = "/media/" + getlogin()
+    with scandir(path) as it:
+        for entry in it:
+            if not entry.name.startswith('.') and entry.is_dir():
+                filename = path + '/' + entry.name
+                if isdir(filename + '/' + "VIDEO_TS"):
+                    display_file("vlc", filename)
+                    return True
+    return False
+
 if len(argv) <= 1:
     print("Missing filename command line argument.")
     exit(1)
 filename = " ".join(argv[1:])
+if filename == "dvd":
+    if playdvd():
+        exit(0)
 if isdir(filename):
     display_file("ls -l", filename)
     exit(0)
