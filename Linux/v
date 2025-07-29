@@ -113,7 +113,7 @@ if filename == "dvd":
     if playdvd():
         exit(0)
 if isdir(filename):
-    print("Content of directory " + filename + ":\n");
+    print("Content of directory " + filename + ":\n")
     display_file("ls -l", filename)
     exit(0)
 elif not isfile(filename):
