@@ -98,9 +98,9 @@ def playdvd():
     with scandir(path) as it:
         for entry in it:
             if not entry.name.startswith('.') and entry.is_dir():
-                filename = path + '/' + entry.name
-                if isdir(filename + '/' + "VIDEO_TS"):
-                    display_file(displayRules["*video"], filename)
+                dvd_path = path + '/' + entry.name
+                if isdir(dvd_path + '/' + "VIDEO_TS"):
+                    display_file(displayRules["*video"], dvd_path)
                     return True
     return False
 
