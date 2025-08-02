@@ -8,7 +8,7 @@ displayRules = {
     "*audio"  : "vlc",
     "*image"  : "nomacs",
     "*office" : "libreoffice --view",   # office suite files
-    "*source" : "less",                 # source code
+    "*source" : "less -x4",             # source code, tab space of 4 as guess
     "*text"   : "less",                 # text
     "*video"  : "vlc",
 
@@ -58,7 +58,7 @@ displayRules = {
     "tar"     : "%tar tvf",
     "tgz"     : "%tar tvzf",
     "ts"      : "*source",              # TypeScript
-    "txt"     : "vf",                   # shell script to display formatted text
+    "txt"     : "vf",                   # uses my vf script for formatting too long lines
     "webp"    : "*image",
     "wma"     : "*audio",
     "wmv"     : "*video",
