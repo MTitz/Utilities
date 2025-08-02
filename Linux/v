@@ -54,6 +54,7 @@ displayRules = {
     "rar"     : "%rar l",
     "rtf"     : "*office",              # Rich Text Format
     "sh"      : "*source",
+    "sqlite"  : "sqlitebrowser -R",
     "svg"     : "*image",
     "tar"     : "%tar tvf",
     "tgz"     : "%tar tvzf",
