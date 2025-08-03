@@ -60,6 +60,7 @@ displayRules = {
     "tgz"     : "%tar tvzf",
     "ts"      : "*source",              # TypeScript
     "txt"     : "vf",                   # uses my vf script for formatting too long lines
+    "vsd"     : "*office",
     "webp"    : "*image",
     "wma"     : "*audio",
     "wmv"     : "*video",
