@@ -3,9 +3,7 @@ basename=${0##*/}
 if [ -z "$@" ]
 then
     echo "$basename: Missing argument."
-    exit
-fi
-if [ -r "$@" ]
+elif [ -r "$@" ]
 then
     length=`winsize --columns`
     length=$((length-2))
