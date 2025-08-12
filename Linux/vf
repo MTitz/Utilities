@@ -2,6 +2,8 @@
 basename=${0##*/}
 if [[ -z "$@" ]]; then
     echo "$basename: Missing argument"
+elif [[ -d "$@" ]]; then
+    echo "$basename: '$@' is a directory"
 elif [[ -r "$@" ]]; then
     length=`winsize --columns`
     length=$((length-2))
