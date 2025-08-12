@@ -1,13 +1,13 @@
 #!/bin/bash
 basename=${0##*/}
-if [ -z "$@" ]
-then
-    echo "$basename: Missing argument."
-elif [ -r "$@" ]
-then
+if [[ -z "$@" ]]; then
+    echo "$basename: Missing argument"
+elif [[ -r "$@" ]]; then
     length=`winsize --columns`
     length=$((length-2))
     fmt -s -w${length} "$@"|less
-else
+elif [[ -f "$@" ]]; then
     echo "$basename: Cannot read file '$@'"
+else
+    echo "$basename: file '$@' does not exist"
 fi
