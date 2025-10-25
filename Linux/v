@@ -28,6 +28,7 @@ displayRules = {
     "fig"     : "xfig",
     "fortran" : "*source",
     "gif"     : "*image",
+    "gblorb"  : "gargoyle-free",
     "h"       : "*source",
     "hpp"     : "*source",
     "htm"     : "lynx",
@@ -42,7 +43,9 @@ displayRules = {
     "mp3"     : "*audio",
     "mp4"     : "*video",
     "mpeg"    : "*audio",
-    "odt"     : "*office",
+    "odp"     : "*office",              # OpenDocument Presentation
+    "ods"     : "*office",              # OpenDocument Spreadsheet
+    "odt"     : "*office",              # OpenDocument Text
     "ogg"     : "*audio",
     "pas"     : "*source",              # Pascal
     "pdf"     : "evince",
