@@ -12,6 +12,9 @@ displayRules = {
     "*text"   : "less",                 # text
     "*video"  : "vlc",
 
+    "7z"      : "%7z l",
+    "avi"     : "*video",
+    "bas"     : "*source",
     "c"       : "*source",
     "class"   : "%javap",
     "cpp"     : "*source",
@@ -26,6 +29,8 @@ displayRules = {
     "f90"     : "*source",
     "f95"     : "*source",
     "fig"     : "xfig",
+    "flv"     : "*video",               # Flash Video
+    "for"     : "*source",
     "fortran" : "*source",
     "gif"     : "*image",
     "gblorb"  : "gargoyle-free",
@@ -57,6 +62,7 @@ displayRules = {
     "ps"      : "evince",
     "py"      : "*source",
     "rar"     : "%rar l",
+    "rm"      : "*video",
     "rtf"     : "*office",              # Rich Text Format
     "sh"      : "*source",
     "sqlite"  : "sqlitebrowser -R",
