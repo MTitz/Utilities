@@ -21,6 +21,7 @@ displayRules = {
     "cs"      : "*source",
     "csh"     : "*source",
     "djvu"    : "evince",
+    "doc"     : "*office",              # with special check for plain text file
     "docx"    : "*office",
     "dvi"     : "xdvi",
     "eps"     : "evince",
@@ -108,6 +109,28 @@ def display_file(command, filename):
     else:
         Popen(args, stderr=DEVNULL)
 
+def display_by_extension(extension, filename):
+    # .doc can also be a plain text file, treat as special case
+    if extension == "doc":
+        command = "*text" if is_textfile(filename) else "*office"
+    else:
+        command = displayRules[extension]
+    if command.startswith("*"):
+        if command in displayRules:
+            command = displayRules[command]
+        else:
+            print("Internal error, missing rule for", command)
+            exit(2)
+    if command.startswith("%"):
+        command = command[1:]
+        print("Content list for", filename)
+        print()
+    if command:
+        display_file(command, filename)
+    else:
+        print("Internal error, missing command to extension", extension)
+        exit(2)
+
 def playdvd():
     path = "/media/" + getlogin()
     with scandir(path) as it:
@@ -137,7 +160,7 @@ elif not isfile(filename):
 elif not access(filename, R_OK):
     print("File", filename, "is not readable.")
     exit(1)
-extension = splitext(filename)[1][1:].lower()
+extension = splitext(filename)[1][1:]
 if len(extension) == 0:
     if is_textfile(filename):
         display_file(displayRules["*text"], filename)
@@ -145,22 +168,9 @@ if len(extension) == 0:
         print("Filename", filename, "without extension, no rule for displaying.")
         exit(1)
 elif extension in displayRules:
-    command = displayRules[extension]
-    if command.startswith("*"):
-        if command in displayRules:
-            command = displayRules[command]
-        else:
-            print("Internal error, missing rule for", command)
-            exit(2)
-    if command.startswith("%"):
-        command = command[1:]
-        print("Content list for", filename)
-        print()
-    if command:
-        display_file(command, filename)
-    else:
-        print("Internal error, missing command to extension", extension)
-        exit(2)
+    display_by_extension(extension, filename)
+elif extension.lower() in displayRules:
+    display_by_extension(extension.lower(), filename)
 else:
     if is_textfile(filename):
         display_file(displayRules["*text"], filename)
