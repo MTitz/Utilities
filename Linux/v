@@ -1,4 +1,23 @@
 #!/usr/bin/python
+#
+# Martin Titz, 2026
+#
+# Shortcut to view many different types of files by
+#     v <filename>
+#
+# Special case
+#     v dvd
+# looks for a DVD and plays it if found.
+#
+# Dictionary displayRules defines the mapping file extension to view command.
+# Special cases in dictionary by first character
+#     '*'    generic rule, will resolved by another lookup in dictionary
+#     '%'    command only list contents of file, print initial explaining text
+#
+# If no matching extension is found or file has no extension, check if file is
+# a text file using Unix/Linux file command and in this case display it.
+
+
 from os import access, getlogin, R_OK, scandir
 from os.path import isdir, isfile, splitext
 from subprocess import DEVNULL, Popen, run
@@ -80,7 +99,7 @@ displayRules = {
     "xlsx"    : "*office",
     "zip"     : "%unzip -l" }
 
-terminalApps = { "javap", "jar", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
+terminalApps = { "7z", "javap", "jar", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
 
 
 def is_textfile(filename):
