@@ -16,6 +16,11 @@
 #
 # If no matching extension is found or file has no extension, check if file is
 # a text file using Unix/Linux file command and in this case display it.
+#
+# I call for files with txt extension a shell script vf formatting the content
+# fitting for size of the terminal window, this script uses a C program winsize.c
+#
+# See https://github.com/MTitz/Utilities in directory Linux
 
 
 from os import access, getlogin, R_OK, scandir
@@ -102,7 +107,7 @@ displayRules = {
     "xlsx"    : "*office",
     "zip"     : "%unzip -l" }
 
-terminalApps = { "7z", "javap", "jar", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
+terminalApps = { "7z", "jar", "javap", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
 
 
 def is_textfile(filename):
