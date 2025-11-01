@@ -65,6 +65,8 @@ displayRules = {
     "jpeg"    : "*image",
     "jpg"     : "*image",
     "js"      : "*source",              # JavaScript
+    "kra"     : "krita",
+    "m4v"     : "*video",
     "mov"     : "*video",
     "mp3"     : "*audio",
     "mp4"     : "*video",
