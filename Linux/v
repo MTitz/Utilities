@@ -24,7 +24,7 @@
 
 
 from os import access, getlogin, R_OK, scandir
-from os.path import isdir, isfile, splitext
+from os.path import getsize, isdir, isfile, splitext
 from subprocess import DEVNULL, Popen, run
 from sys import argv, exit
 
@@ -40,6 +40,7 @@ displayRules = {
     "asm"     : "*source",
     "avi"     : "*video",
     "bas"     : "*source",
+    "bat"     : "*source",
     "c"       : "*source",
     "class"   : "%javap",
     "cpp"     : "*source",
@@ -103,6 +104,7 @@ displayRules = {
     "webp"    : "*image",
     "wma"     : "*audio",
     "wmv"     : "*video",
+    "xcf"     : "gimp",
     "xls"     : "*office",
     "xlsx"    : "*office",
     "zip"     : "%unzip -l" }
@@ -187,6 +189,9 @@ elif not isfile(filename):
 elif not access(filename, R_OK):
     print("File", filename, "is not readable.")
     exit(1)
+elif getsize(filename) == 0:
+    print("File", filename, "has size 0.")
+    exit(0)
 extension = splitext(filename)[1][1:]
 if len(extension) == 0:
     if is_textfile(filename):
@@ -196,7 +201,7 @@ if len(extension) == 0:
         exit(1)
 elif extension in displayRules:
     display_by_extension(extension, filename)
-elif extension.lower() in displayRules:
+elif not extension.islower() and extension.lower() in displayRules:
     display_by_extension(extension.lower(), filename)
 else:
     if is_textfile(filename):
