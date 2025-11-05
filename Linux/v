@@ -17,10 +17,10 @@
 # If no matching extension is found or file has no extension, check if file is
 # a text file using Unix/Linux file command and in this case display it.
 #
-# I call for files with txt extension a shell script vf formatting the content
-# fitting for size of the terminal window, this script uses a C program winsize.c
-#
-# See https://github.com/MTitz/Utilities in directory Linux
+# I use for files with txt extension a shell script 'vf' formatting the content
+# fitting for size of the terminal window, this script uses a C program with
+# source code in file winsize.c to get size of terminal window.
+# See https://github.com/MTitz/Utilities in directory Linux.
 
 
 from os import access, getlogin, R_OK, scandir
@@ -39,6 +39,7 @@ displayRules = {
     "7z"      : "%7z l",
     "asm"     : "*source",
     "avi"     : "*video",
+    "awk"     : "*source",
     "bas"     : "*source",
     "bat"     : "*source",
     "c"       : "*source",
@@ -59,8 +60,8 @@ displayRules = {
     "flv"     : "*video",               # Flash Video
     "for"     : "*source",
     "fortran" : "*source",
-    "gif"     : "*image",
     "gblorb"  : "gargoyle-free",
+    "gif"     : "*image",
     "h"       : "*source",
     "hpp"     : "*source",
     "htm"     : "lynx",
@@ -93,6 +94,7 @@ displayRules = {
     "rar"     : "%rar l",
     "rm"      : "*video",
     "rtf"     : "*office",              # Rich Text Format
+    "sed"     : "*source",
     "sh"      : "*source",
     "sqlite"  : "sqlitebrowser -R",
     "svg"     : "*image",
