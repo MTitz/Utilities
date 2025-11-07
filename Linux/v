@@ -182,9 +182,13 @@ if filename == "dvd":
     if playdvd():
         exit(0)
 if isdir(filename):
-    print("Content of directory " + filename + ":\n")
-    display_file("ls -l", filename)
-    exit(0)
+    if access(filename, R_OK):
+        print("Content of directory " + filename + ":\n")
+        display_file("ls -l", filename)
+        exit(0)
+    else:
+        print("Dictionary", filename, "is not readable.")
+        exit(1)
 elif not isfile(filename):
     print("File", filename, "does not exist.")
     exit(1)
