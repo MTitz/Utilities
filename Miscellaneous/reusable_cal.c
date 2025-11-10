@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int is_leap_year(int year)
+static int is_leap_year(int year)
 {
     return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 }
@@ -31,8 +31,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    int n_years = last - first + 1;
-    int cal_class[n_years];
+    int cal_class[last - first + 1];
     int c = 0;
     int year;
 
@@ -42,13 +41,13 @@ int main(int argc, char *argv[])
             cal_class[year - first] += 7;
             ++c;
         }
-        c = (c+1) % 7;
+        c = (c + 1) % 7;
     }
 
     printf("Resusable calenders for whole years:\n");
     for (c = 0; c < 14; ++c) {
         int has_entries = 0;
-        for (int year = first; year <= last; ++year) {
+        for (year = first; year <= last; ++year) {
             if (cal_class[year - first] == c) {
                 printf("%5d", year);
                 has_entries = 1;
@@ -58,10 +57,10 @@ int main(int argc, char *argv[])
             putchar('\n');
     }
 
-    printf("\nResusable calenders from January 1st until February 28th:\n");
+    printf("\nResusable calenders for January 1st until February 28th:\n");
     for (c = 0; c < 7; ++c) {
         int has_entries = 0;
-        for (int year = first; year <= last; ++year) {
+        for (year = first; year <= last; ++year) {
             if (cal_class[year - first] == c || cal_class[year - first] == c+7) {
                 printf("%5d", year);
                 has_entries = 1;
@@ -71,10 +70,10 @@ int main(int argc, char *argv[])
             putchar('\n');
     }
 
-    printf("\nResusable calenders from March until December:\n");
+    printf("\nResusable calenders for March until December:\n");
     for (c = 0; c < 7; ++c) {
         int has_entries = 0;
-        for (int year = first; year <= last; ++year) {
+        for (year = first; year <= last; ++year) {
             int c2 = c + 6;
             if (c2 == 6)
                 c2 = 13;
@@ -86,4 +85,5 @@ int main(int argc, char *argv[])
         if (has_entries)
             putchar('\n');
     }
+    return EXIT_SUCCESS;
 }
