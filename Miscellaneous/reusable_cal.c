@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         c = (c + 1) % 7;
     }
 
-    printf("Resusable calenders for whole years:\n");
+    printf("Reusable calendars for whole years:\n");
     for (c = 0; c < 14; ++c) {
         int has_entries = 0;
         for (year = first; year <= last; ++year) {
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
             putchar('\n');
     }
 
-    printf("\nResusable calenders for January 1st until February 28th:\n");
+    printf("\nReusable calendars for January 1st until February 28th:\n");
     for (c = 0; c < 7; ++c) {
         int has_entries = 0;
         for (year = first; year <= last; ++year) {
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
             putchar('\n');
     }
 
-    printf("\nResusable calenders for March until December:\n");
+    printf("\nReusable calendars for March until December:\n");
     for (c = 0; c < 7; ++c) {
         int has_entries = 0;
         for (year = first; year <= last; ++year) {
