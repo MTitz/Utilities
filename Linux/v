@@ -12,7 +12,7 @@
 # Dictionary displayRules defines the mapping file extension to view command.
 # Special cases in dictionary by first character
 #     '*'    generic rule, will resolved by another lookup in dictionary
-#     '%'    command only list contents of file, print initial explaining text
+#     '@'    command only lists contents of file, print initial explaining text
 #
 # If no matching extension is found or file has no extension, check if file is
 # a text file using Unix/Linux file command and in this case display it.
@@ -36,14 +36,14 @@ displayRules = {
     "*text"   : "less",                 # text
     "*video"  : "vlc",
 
-    "7z"      : "%7z l",
+    "7z"      : "@7z l",
     "asm"     : "*source",
     "avi"     : "*video",
     "awk"     : "*source",
     "bas"     : "*source",
     "bat"     : "*source",
     "c"       : "*source",
-    "class"   : "%javap",
+    "class"   : "@javap",
     "cpp"     : "*source",
     "cs"      : "*source",
     "csh"     : "*source",
@@ -67,7 +67,7 @@ displayRules = {
     "htm"     : "lynx",
     "html"    : "lynx",
     "ico"     : "*image",
-    "jar"     : "%jar tf",
+    "jar"     : "@jar tf",
     "java"    : "*source",
     "jpeg"    : "*image",
     "jpg"     : "*image",
@@ -91,25 +91,26 @@ displayRules = {
     "pptx"    : "*office",
     "ps"      : "evince",
     "py"      : "*source",
-    "rar"     : "%rar l",
+    "rar"     : "@rar l",
     "rm"      : "*video",
     "rtf"     : "*office",              # Rich Text Format
     "sed"     : "*source",
     "sh"      : "*source",
     "sqlite"  : "sqlitebrowser -R",
     "svg"     : "*image",
-    "tar"     : "%tar tvf",
-    "tgz"     : "%tar tvzf",
+    "tar"     : "@tar tvf",
+    "tgz"     : "@tar tvzf",
     "ts"      : "*source",              # TypeScript
     "txt"     : "vf",                   # uses my vf script for formatting too long lines
     "vsd"     : "*office",
     "webp"    : "*image",
     "wma"     : "*audio",
     "wmv"     : "*video",
+    "xbm"     : "*image",               # X11 bitmap
     "xcf"     : "gimp",
     "xls"     : "*office",
     "xlsx"    : "*office",
-    "zip"     : "%unzip -l" }
+    "zip"     : "@unzip -l" }
 
 terminalApps = { "7z", "jar", "javap", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
 
@@ -152,7 +153,7 @@ def display_by_extension(extension, filename):
         else:
             print("Internal error, missing rule for", command)
             exit(2)
-    if command.startswith("%"):
+    if command.startswith("@"):
         command = command[1:]
         print("Content list for", filename)
         print()
