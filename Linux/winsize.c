@@ -43,18 +43,20 @@ int main(int argc, char *argv[])
 static void pr_winsize(int fd)
 {
     struct winsize size;
-    if (ioctl(fd, TIOCGWINSZ, (char *) &size) < 0)
-        fprintf(stderr, "TIOCGWINSZ error\n");
-    switch (options) {
-      case BOTH:
-        printf("%dx%d\n", size.ws_col, size.ws_row);
-        break;
-      case ONLY_COL:
-        printf("%d\n", size.ws_col);
-        break;
-      case ONLY_ROW:
-        printf("%d\n", size.ws_row);
-        break;
+    if (ioctl(fd, TIOCGWINSZ, (char *) &size) < 0) {
+        fprintf(stderr, "%s: TIOCGWINSZ error\n", progname);
+    } else {
+        switch (options) {
+          case BOTH:
+            printf("%dx%d\n", size.ws_col, size.ws_row);
+            break;
+          case ONLY_COL:
+            printf("%d\n", size.ws_col);
+            break;
+          case ONLY_ROW:
+            printf("%d\n", size.ws_row);
+            break;
+        }
     }
 }
 

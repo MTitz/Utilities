@@ -16,13 +16,10 @@ MANDIR  = $(PREFIX)/man/man1
 
 all:	prog docs
 
-install: hdump
-	cp -p hdump $(BINDIR)
-	chown root:root $(BINDIR)/hdump
-	chmod 755 $(BINDIR)/hdump
-	cp -p hdump.1 $(MANDIR)
-	chown root:root $(MANDIR)/hdump.1
-	chmod 644 $(MANDIR)/hdump.1
+install: prog docs
+	cp -p winsize $(BINDIR)
+	chown root:root $(BINDIR)/winsize
+	chmod 755 $(BINDIR)/winsize
 
 prog:	winsize
 
