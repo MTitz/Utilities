@@ -26,7 +26,7 @@ install: hdump
 
 prog:	hdump
 
-docs: hdump.dvi hdump.ps hdump.txt
+docs:	hdump.dvi hdump.ps hdump.txt
 
 hdump: hdump.o
 	$(CC) -o $@ hdump.o $(LFLAGS) $(LIBS)
