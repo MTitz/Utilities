@@ -72,11 +72,11 @@ int main(int argc, char *argv[])
 
     printf("\nReusable calendars for March until December:\n");
     for (c = 0; c < 7; ++c) {
+        int c2 = c + 6;
+        if (c2 == 6)
+            c2 = 13;
         int has_entries = 0;
         for (year = first; year <= last; ++year) {
-            int c2 = c + 6;
-            if (c2 == 6)
-                c2 = 13;
             if (cal_class[year - first] == c || cal_class[year - first] == c2) {
                 printf("%5d", year);
                 has_entries = 1;
