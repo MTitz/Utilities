@@ -1,4 +1,17 @@
-/* Determine if a calendar can be reused for another year in a given range. */
+/* Determine if a calendar can be reused for another year in a given range.  *
+ * by Martin Titz, 2025                                                      *
+ *                                                                           *
+ * A wall calendar is considered to be reusable, if the weekdays are         *
+ * matching for the whole year (or the days until February 28th or from      *
+ * March to December). But holidays like Easter will still not match.        *
+ *                                                                           *
+ * A typical call of the compiled program is                                 *
+ *     ./reusable_cal 1975 2075 > reusable_cal.txt                           *
+ * calculating the reusable calendars for the years from 1975 to 2075 and    *
+ * storing them in the file reusable_cal.txt.                                *
+ *   (the ./ at beginning is on Unix-like systems required if executable is  *
+ *    not residing in a directory which is in the search path for commands.  *
+ *                                                                           */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,12 +22,40 @@ static int is_leap_year(int year)
     return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 }
 
+static void print_case(int no, int first, int last, int cal_class[], const char *months)
+{
+    printf("Reusable calendars for %s:\n", months);
+    int c_end = no == 1 ? 14 : 7;
+    for (int c = 0; c < c_end; ++c) {
+        int c2 = -1;
+        switch (no) {
+          case 2:
+            c2 = c + 7;
+            break;
+          case 3:
+            c2 = c + 6;
+            if (c2 == 6)
+                c2 = 13;
+            break;
+        }
+        int has_entries = 0;
+        for (int year = first; year <= last; ++year) {
+            if (cal_class[year - first] == c || cal_class[year - first] == c2) {
+                printf("%5d", year);
+                has_entries = 1;
+            }
+        }
+        if (has_entries)
+            putchar('\n');
+    }
+}
+
 int main(int argc, char *argv[])
 {
     char *progname = argv[0];
 #ifdef __unix__
     char *ptmp;
-    if (ptmp = strrchr(progname, '/'))
+    if ((ptmp = strrchr(progname, '/')))
         progname = ptmp + 1;
 #endif
 
@@ -33,9 +74,7 @@ int main(int argc, char *argv[])
 
     int cal_class[last - first + 1];
     int c = 0;
-    int year;
-
-    for (year = first; year <= last; ++year) {
+    for (int year = first; year <= last; ++year) {
         cal_class[year - first] = c;
         if (is_leap_year(year)) {
             cal_class[year - first] += 7;
@@ -44,46 +83,11 @@ int main(int argc, char *argv[])
         c = (c + 1) % 7;
     }
 
-    printf("Reusable calendars for whole years:\n");
-    for (c = 0; c < 14; ++c) {
-        int has_entries = 0;
-        for (year = first; year <= last; ++year) {
-            if (cal_class[year - first] == c) {
-                printf("%5d", year);
-                has_entries = 1;
-            }
-        }
-        if (has_entries)
-            putchar('\n');
-    }
+    print_case(1, first, last, cal_class, "whole years");
+    putchar('\n');
+    print_case(2, first, last, cal_class, "January 1st until February 28th");
+    putchar('\n');
+    print_case(3, first, last, cal_class, "March until December");
 
-    printf("\nReusable calendars for January 1st until February 28th:\n");
-    for (c = 0; c < 7; ++c) {
-        int has_entries = 0;
-        for (year = first; year <= last; ++year) {
-            if (cal_class[year - first] == c || cal_class[year - first] == c+7) {
-                printf("%5d", year);
-                has_entries = 1;
-            }
-        }
-        if (has_entries)
-            putchar('\n');
-    }
-
-    printf("\nReusable calendars for March until December:\n");
-    for (c = 0; c < 7; ++c) {
-        int c2 = c + 6;
-        if (c2 == 6)
-            c2 = 13;
-        int has_entries = 0;
-        for (year = first; year <= last; ++year) {
-            if (cal_class[year - first] == c || cal_class[year - first] == c2) {
-                printf("%5d", year);
-                has_entries = 1;
-            }
-        }
-        if (has_entries)
-            putchar('\n');
-    }
     return EXIT_SUCCESS;
 }
