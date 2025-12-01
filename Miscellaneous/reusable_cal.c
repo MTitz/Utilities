@@ -24,7 +24,7 @@ static int is_leap_year(int year)
 
 static void print_case(int no, int first, int last, int cal_class[], const char *months)
 {
-    printf("Reusable calendars for %s:\n", months);
+    printf("\nReusable calendars for %s:\n", months);
     int c_end = no == 1 ? 14 : 7;
     for (int c = 0; c < c_end; ++c) {
         int c2 = -1;
@@ -83,10 +83,9 @@ int main(int argc, char *argv[])
         c = (c + 1) % 7;
     }
 
+    printf("Reusable calendars for years from %d to %d\n\n", first, last);
     print_case(1, first, last, cal_class, "whole years");
-    putchar('\n');
     print_case(2, first, last, cal_class, "January 1st until February 28th");
-    putchar('\n');
     print_case(3, first, last, cal_class, "March until December");
 
     return EXIT_SUCCESS;
