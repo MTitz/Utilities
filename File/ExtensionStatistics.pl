@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Martin Titz, 2013, 2014, 2019, 2025
+# Martin Titz, 2013, 2014, 2019, 2025, 2026
 #
 # Statistics by file extensions
 #
@@ -52,13 +52,18 @@ sub processDirectory {
     closedir $dh;
 }
 
+sub byExtensions {
+    $a eq $NONE ? $b eq $NONE ? 0 : -1
+                : $b eq $NONE ? 1 : $a cmp $b;
+}
+
 sub processFinal {
-    foreach my $key (sort(keys %extensions)) {
+    foreach my $key (sort byExtensions (keys %extensions)) {
         printf "%-10s%6d\n", $key, $extensions{$key};
     }
     if ($filenameStatistics) {
         printf("\n");
-        for my $bn (sort(keys %basename2extensions)) {
+        for my $bn (sort byExtensions (keys %basename2extensions)) {
             print "$bn";
             for my $ext (sort @{ $basename2extensions{$bn} }){
                 $ext = $NONE if $ext eq "";
