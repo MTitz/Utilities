@@ -17,14 +17,14 @@ my $recursive = 0;
 my $verbose = 0;
 
 sub processFilename {
-    my ($dirpart, $filepart) = @_;
-    my $dotIndex = rindex $filepart, ".";
-    my $extension = $dotIndex == -1 ? "" : substr $filepart, $dotIndex+1;
+    my ($filename) = @_;
+    my $dotIndex = rindex $filename, ".";
+    my $extension = $dotIndex == -1 ? "" : substr $filename, $dotIndex+1;
     ++$extensions{$extension eq "" ? $NONE : $extension};
     if ($filenameStatistics) {
         my $basename = $dotIndex == -1
-            ? $filepart
-            : substr $filepart, 0, $dotIndex;
+            ? $filename
+            : substr $filename, 0, $dotIndex;
         if (! defined $basename2extensions{$basename}) {
             $basename2extensions{$basename} = [];
         }
@@ -44,7 +44,7 @@ sub processDirectory {
         if (-d _) {
             processDirectory($filename) if $recursive;
         } elsif (-f _) {
-            processFilename($dir, $file);
+            processFilename($file);
         } else {
             print "  Ignoring special file $filename\n" if $verbose;
         }
