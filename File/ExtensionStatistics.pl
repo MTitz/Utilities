@@ -53,16 +53,17 @@ sub processDirectory {
 }
 
 sub byExtensions {
+    our ($a, $b);
     $a eq $NONE ? $b eq $NONE ? 0 : -1
                 : $b eq $NONE ? 1 : $a cmp $b;
 }
 
 sub processFinal {
     foreach my $key (sort byExtensions (keys %extensions)) {
-        printf "%-10s%6d\n", $key, $extensions{$key};
+        printf "%-12s%8d\n", $key, $extensions{$key};
     }
     if ($filenameStatistics) {
-        printf("\n");
+        print "\n";
         for my $bn (sort byExtensions (keys %basename2extensions)) {
             print "$bn";
             for my $ext (sort @{ $basename2extensions{$bn} }){
