@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+#
+# Martin Titz, 1997
+#
+# Convert filenames from uppercase to lowercase, reads filenames from
+# stdin if no arguments are given (useful for pipes).
+#
+
+$0 =~ s#.*/##g;
+$usage = "Usage: $0 [-v] file...\n";
+$verbose = 0;
+while (defined $ARGV[0] && $ARGV[0] =~ /^-/) {
+    $_ = shift;
+    if (/^-h$/) {
+	die $usage;
+    } elsif (/^-v$/) {
+	$verbose = 1;
+    } else {
+	die "Unrecognized switch: $_\n";
+    }
+}
+chop(@ARGV = <STDIN>) unless @ARGV;
+for (@ARGV) {
+    warn("$0: File $_ doesn't exist\n"), next if !-e $_;
+    $old = $_;
+    y/A-Z/a-z/;
+    if ($old ne $_) {
+	warn("$0: File $_ already exists, can't rename $old\n"), next if -e $_;
+	rename($old, $_) || die "$0: Can't rename $old to $_: $!\n";
+	print "Renaming $old -> $_\n" if $verbose;
+    }
+}

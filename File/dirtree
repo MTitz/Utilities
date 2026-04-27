@@ -1,0 +1,14 @@
+#!/bin/sh
+if [ $# -eq 0 ]
+then
+    ARG=.
+else
+    ARG="$@"
+fi
+find -L "$ARG" -type d -print 2>/dev/null|tr / '\01'|sort -d|tr '\01' /|sed -e '
+s/[^\/]*\//|-----/g
+s/|-----|/      |/g
+s/ |----- /        /g
+s/|-----|/      |/g
+s/ |----- /        /g
+'
