@@ -6,7 +6,9 @@ elif [[ -d "$@" ]]; then
     echo "$basename: '$@' is a directory"
 elif [[ -r "$@" ]]; then
     length=`winsize --columns`
-    length=$((length-2))
+    if [[ $length -gt 80 ]]; then
+        length=$((length-1))
+    fi
     fmt -s -w${length} "$@"|less
 elif [[ -f "$@" ]]; then
     echo "$basename: Cannot read file '$@'"
