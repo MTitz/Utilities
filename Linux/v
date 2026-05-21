@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Martin Titz, 2025
+# Martin Titz, 2025, 2026
 #
 # Shortcut to view many different types of files by
 #     v <filename>
@@ -51,6 +51,7 @@ displayRules = {
     "doc"     : "*office",              # with special check for plain text file
     "docx"    : "*office",
     "dvi"     : "xdvi",
+    "dvi.gz"  : "xdvi",
     "eps"     : "evince",
     "f"       : "*source",
     "f77"     : "*source",
@@ -74,6 +75,7 @@ displayRules = {
     "js"      : "*source",              # JavaScript
     "kra"     : "krita",
     "m4v"     : "*video",
+    "mixal"   : "*source",              # MIX assembly language (see TAOCP)
     "mov"     : "*video",
     "mp3"     : "*audio",
     "mp4"     : "*video",
@@ -84,12 +86,14 @@ displayRules = {
     "ogg"     : "*audio",
     "pas"     : "*source",              # Pascal
     "pdf"     : "evince",
+    "pdf.gz"  : "evince",
     "pgn"     : "scid",
     "pl"      : "*source",
     "png"     : "*image",
     "ppt"     : "*office",
     "pptx"    : "*office",
     "ps"      : "evince",
+    "ps.gz"   : "evince",
     "py"      : "*source",
     "rar"     : "@rar l",
     "rm"      : "*video",
@@ -99,6 +103,8 @@ displayRules = {
     "sqlite"  : "sqlitebrowser -R",
     "svg"     : "*image",
     "tar"     : "@tar tvf",
+    "tar.bz2" : "@tar tvjf",
+    "tar.gz"  : "@tar tvzf",
     "tgz"     : "@tar tvzf",
     "ts"      : "*source",              # TypeScript
     "txt"     : "vf",                   # uses my vf script for formatting too long lines
@@ -114,6 +120,7 @@ displayRules = {
     "zip"     : "@unzip -l" }
 
 terminalApps = { "7z", "jar", "javap", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
+longExtensions = { "dvi.gz", "pdf.gz", "ps.gz", "tar.bz2", "tar.gz" }
 
 
 def is_textfile(filename):
@@ -201,6 +208,10 @@ elif getsize(filename) == 0:
     print("File", filename, "has size 0.")
     exit(0)
 extension = splitext(filename)[1][1:]
+for ext in longExtensions:
+    if filename.endswith("." + ext):
+        extension = ext
+        break
 if len(extension) == 0:
     if is_textfile(filename):
         display_file(displayRules["*text"], filename)
