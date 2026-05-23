@@ -63,6 +63,7 @@ displayRules = {
     "fortran" : "*source",
     "gblorb"  : "gargoyle-free",
     "gif"     : "*image",
+    "go"      : "*source",              # Go source code
     "h"       : "*source",
     "hpp"     : "*source",
     "htm"     : "lynx",
@@ -70,9 +71,11 @@ displayRules = {
     "ico"     : "*image",
     "jar"     : "@jar tf",
     "java"    : "*source",
+    "jl"      : "*source",              # Julia source code
     "jpeg"    : "*image",
     "jpg"     : "*image",
     "js"      : "*source",              # JavaScript
+    "json"    : "jq .[]",
     "kra"     : "krita",
     "m4v"     : "*video",
     "mixal"   : "*source",              # MIX assembly language (see TAOCP)
@@ -94,7 +97,7 @@ displayRules = {
     "pptx"    : "*office",
     "ps"      : "evince",
     "ps.gz"   : "evince",
-    "py"      : "*source",
+    "py"      : "*source",              # Python source code
     "rar"     : "@rar l",
     "rm"      : "*video",
     "rtf"     : "*office",              # Rich Text Format
@@ -108,6 +111,7 @@ displayRules = {
     "tgz"     : "@tar tvzf",
     "ts"      : "*source",              # TypeScript
     "txt"     : "vf",                   # uses my vf script for formatting too long lines
+    "txt.gz"  : "less",
     "vsd"     : "*office",
     "wav"     : "*audio",
     "webp"    : "*image",
@@ -119,8 +123,8 @@ displayRules = {
     "xlsx"    : "*office",
     "zip"     : "@unzip -l" }
 
-terminalApps = { "7z", "jar", "javap", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
-longExtensions = { "dvi.gz", "pdf.gz", "ps.gz", "tar.bz2", "tar.gz" }
+terminalApps = { "7z", "jar", "javap", "jq", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
+longExtensions = { "dvi.gz", "pdf.gz", "ps.gz", "tar.bz2", "tar.gz", "txt.gz" }
 
 
 def is_textfile(filename):
