@@ -17,6 +17,8 @@ MANDIR  = $(PREFIX)/man/man1
 all:	prog docs
 
 install: hdump
+	if [ ! -d $(BINDIR) ] ; then mkdir -p $(BINDIR) ; fi
+	if [ ! -d $(MANDIR) ] ; then mkdir -p $(MANDIR) ; fi
 	cp -p hdump $(BINDIR)
 	chown root:root $(BINDIR)/hdump
 	chmod 755 $(BINDIR)/hdump
