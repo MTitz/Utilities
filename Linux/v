@@ -37,6 +37,7 @@ displayRules = {
     "*video"  : "vlc",
 
     "7z"      : "@7z l",
+    "a68"     : "*source",              # Algol 68 source code
     "asm"     : "*source",
     "avi"     : "*video",
     "awk"     : "*source",
@@ -45,7 +46,7 @@ displayRules = {
     "c"       : "*source",
     "class"   : "@javap",
     "cpp"     : "*source",
-    "cs"      : "*source",
+    "cs"      : "*source",              # C# source code
     "csh"     : "*source",
     "djvu"    : "evince",
     "doc"     : "*office",              # with special check for plain text file
@@ -87,7 +88,7 @@ displayRules = {
     "ods"     : "*office",              # OpenDocument Spreadsheet
     "odt"     : "*office",              # OpenDocument Text
     "ogg"     : "*audio",
-    "pas"     : "*source",              # Pascal
+    "pas"     : "*source",              # Pascal source code
     "pdf"     : "evince",
     "pdf.gz"  : "evince",
     "pgn"     : "scid",
@@ -100,6 +101,7 @@ displayRules = {
     "py"      : "*source",              # Python source code
     "rar"     : "@rar l",
     "rm"      : "*video",
+    "rs"      : "*source",              # Rust source code
     "rtf"     : "*office",              # Rich Text Format
     "sed"     : "*source",
     "sh"      : "*source",
