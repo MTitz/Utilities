@@ -38,6 +38,7 @@ displayRules = {
 
     "7z"      : "@7z l",
     "a68"     : "*source",              # Algol 68 source code
+    "apk"     : "@apkinfo",             # Android package
     "asm"     : "*source",
     "avi"     : "*video",
     "awk"     : "*source",
@@ -122,10 +123,11 @@ displayRules = {
     "xbm"     : "*image",               # X11 bitmap
     "xcf"     : "gimp",
     "xls"     : "*office",
+    "xlsm"    : "*office",              # Excel file with macros
     "xlsx"    : "*office",
     "zip"     : "@unzip -l" }
 
-terminalApps = { "7z", "jar", "javap", "jq", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
+terminalApps = { "7z", "apkinfo", "jar", "javap", "jq", "less", "ls", "lynx", "rar", "tar", "unzip", "vf" }
 longExtensions = { "dvi.gz", "pdf.gz", "ps.gz", "tar.bz2", "tar.gz", "txt.gz" }
 
 
@@ -169,7 +171,7 @@ def display_by_extension(extension, filename):
             exit(2)
     if command.startswith("@"):
         command = command[1:]
-        print("Content list for", filename)
+        print("Content information for", filename)
         print()
     if command:
         display_file(command, filename)
