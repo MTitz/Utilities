@@ -191,7 +191,6 @@ def playdvd():
 if len(argv) <= 1:
     print("Usage: v <filename>")
     exit(1)
-filename = " ".join(argv[1:])
 if filename == "dvd":
     if playdvd():
         exit(0)
