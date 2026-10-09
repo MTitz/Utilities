@@ -159,10 +159,7 @@ def display_file(command, filename):
 
 def display_by_extension(extension, filename):
     # .doc can also be a plain text file, treat as special case
-    if extension == "doc":
-        command = "*text" if is_textfile(filename) else "*office"
-    else:
-        command = displayRules[extension]
+    command = "*text" if extension == "doc" and is_textfile(filename) else displayRules[extension]
     if command.startswith("*"):
         if command in displayRules:
             command = displayRules[command]
